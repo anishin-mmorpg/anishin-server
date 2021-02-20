@@ -1,4 +1,15 @@
-#!/bin/sh
+#!/bin/bash
+
+if [[ $(id -u) -ne 0 ]]; then
+    echo "The build script must be run as root (or sudo)"
+    exit
+fi
+
+if [ "$1" = "clean" ]; then
+    rm -Rf build/build
+    rm -Rf build/lib
+    exit
+fi
 
 if [ ! -d build ]; then
     mkdir build
@@ -19,6 +30,12 @@ fi
         ( cd ryzom-nel; git pull https://github.com/anishin-mmorpg/ryzom-nel.git )
     fi
 
+    if [ ! -d ryzom-nelns ]; then
+        git clone https://github.com/anishin-mmorpg/ryzom-nelns.git
+    else
+        ( cd ryzom-nelns; git pull https://github.com/anishin-mmorpg/ryzom-nelns.git )
+    fi
+
     if [ ! -d ryzom-server ]; then
         git clone https://github.com/anishin-mmorpg/ryzom-server.git
     else
@@ -29,6 +46,12 @@ fi
         git clone https://github.com/anishin-mmorpg/ryzom-tools.git
     else
         ( cd ryzom-tools; git pull https://github.com/anishin-mmorpg/ryzom-tools.git )
+    fi
+
+    if [ ! -d ryzom-web ]; then
+        git clone https://github.com/anishin-mmorpg/ryzom-web.git
+    else
+        ( cd ryzom-web; git pull https://github.com/anishin-mmorpg/ryzom-web.git )
     fi
 )
 
@@ -45,6 +68,10 @@ fi
 
     if [ ! -L nel ]; then
         ln -s ../ryzom-nel nel
+    fi
+
+    if [ ! -L nelns ]; then
+        ln -s ../ryzom-nelns nelns
     fi
 )
 
@@ -71,10 +98,31 @@ fi
     RYZOM_PATH="$(pwd)/code/ryzom"
     PATH=$PATH:$RYZOM_PATH/tools/scripts/linux
 
-    cmake -DWITH_NEL=ON -DWITH_RYZOM_SERVER=ON -DWITH_STATIC=ON -DWITH_STATIC_DRIVERS=ON -DWITH_GUI=OFF \
+    cmake -DWITH_NEL=ON -DWITH_NELNS=ON -DWITH_RYZOM_SERVER=ON -DWITH_STATIC=ON -DWITH_STATIC_DRIVERS=ON \
           -DWITH_RYZOM_CLIENT=OFF -DWITH_DRIVER_OPENGL=OFF -DWITH_DRIVER_OPENAL=OFF -DWITH_SOUND=OFF \
-          -DWITH_NEL_TOOLS=OFF -DWITH_RYZOM_TOOLS=OFF -DWITH_NEL_TESTS=OFF -DWITH_NEL_SAMPLES=OFF ..
+          -DWITH_NEL_TOOLS=OFF -DWITH_RYZOM_TOOLS=OFF -DWITH_NEL_TESTS=OFF -DWITH_NEL_SAMPLES=OFF -DWITH_GUI=OFF ..
 
     make
     make install
+)
+
+(
+    if [ ! -d /var/www/html-backup ]; then
+        mv /var/www/html /var/www/html-backup
+    fi
+
+    cp -R build/ryzom-web/public_php /var/www/html
+    cp -R build/ryzom-web/private_php /var/www/private_php
+
+    if [ ! -d /var/www/html/login/logs ]; then
+        mkdir /var/www/html/login/logs
+    fi
+
+    chmod a+w /var/www/html/login/logs/
+    chmod a+w /var/www/html/admin/graphs_output/
+    chmod a+w /var/www/html/admin/templates/default_c/
+    chmod a+w /var/www/html/ams/cache/
+    chmod a+w /var/www/html/ams/templates_c/
+    chmod a+w /var/www/html/
+    chmod a+w /var/www/private_php/ams/tmp/
 )
