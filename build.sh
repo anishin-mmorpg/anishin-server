@@ -106,23 +106,37 @@ fi
     make install
 )
 
-(
-    if [ ! -d /var/www/html-backup ]; then
-        mv /var/www/html /var/www/html-backup
-    fi
+if [ ! -d /var/www/html-backup ]; then
+    mv /var/www/html /var/www/html-backup
+fi
 
-    cp -R build/ryzom-web/public_php /var/www/html
-    cp -R build/ryzom-web/private_php /var/www/private_php
+cp -R build/ryzom-web/public_php /var/www/html
+cp -R build/ryzom-web/private_php /var/www/private_php
 
-    if [ ! -d /var/www/html/login/logs ]; then
-        mkdir /var/www/html/login/logs
-    fi
+if [ ! -d /var/www/html/login/logs ]; then
+    mkdir /var/www/html/login/logs
+fi
 
-    chmod a+w /var/www/html/login/logs/
-    chmod a+w /var/www/html/admin/graphs_output/
-    chmod a+w /var/www/html/admin/templates/default_c/
-    chmod a+w /var/www/html/ams/cache/
-    chmod a+w /var/www/html/ams/templates_c/
-    chmod a+w /var/www/html/
-    chmod a+w /var/www/private_php/ams/tmp/
-)
+chmod a+w /var/www/html/login/logs/
+chmod a+w /var/www/html/admin/graphs_output/
+chmod a+w /var/www/html/admin/templates/default_c/
+chmod a+w /var/www/html/ams/cache/
+chmod a+w /var/www/html/ams/templates_c/
+chmod a+w /var/www/html/
+chmod a+w /var/www/private_php/ams/tmp/
+
+chmod a+x build/code/ryzom/tools/scripts/linux/*
+
+if [ $(logname) = "root" ]; then
+    HOME="/root"
+else
+    HOME="/home/$(logname)"
+fi
+
+if [ -z "$RYZOM_PATH" ]; then
+    echo "" >> "$HOME/.bashrc"
+    echo "export RYZOM_PATH=$(pwd)/build/code/ryzom" >> "$HOME/.bashrc"
+    echo "export PATH=\$PATH:\$RYZOM_PATH/tools/scripts/linux" >> "$HOME/.bashrc"
+
+    su --session-command "exec bash" $(logname)
+fi
