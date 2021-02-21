@@ -37,6 +37,12 @@ fi
     else
         ( cd nelns; git pull )
     fi
+
+    if [ ! -d web ]; then
+        git clone https://github.com/anishin-mmorpg/ryzom-web.git web
+    else
+        ( cd web; git pull )
+    fi
 )
 
 (
@@ -60,12 +66,6 @@ fi
     else
         ( cd tools; git pull )
     fi
-
-    if [ ! -d ryzom-web ]; then
-        git clone https://github.com/anishin-mmorpg/ryzom-web.git
-    else
-        ( cd ryzom-web; git pull https://github.com/anishin-mmorpg/ryzom-web.git )
-    fi
 )
 
 (
@@ -86,8 +86,8 @@ if [ ! -d /var/www/html-backup ]; then
     mv /var/www/html /var/www/html-backup
 fi
 
-cp -R build/ryzom-web/public_php /var/www/html
-cp -R build/ryzom-web/private_php /var/www/private_php
+cp -R build/code/web/public_php /var/www/html
+cp -R build/code/web/private_php /var/www/private_php
 
 if [ ! -d /var/www/html/login/logs ]; then
     mkdir /var/www/html/login/logs
