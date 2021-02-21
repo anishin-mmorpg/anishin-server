@@ -114,5 +114,5 @@ if [ -z "$RYZOM_PATH" ]; then
     echo "export RYZOM_PATH=$(pwd)/build/code/ryzom" >> "$HOME/.bashrc"
     echo "export PATH=\$PATH:\$RYZOM_PATH/tools/scripts/linux" >> "$HOME/.bashrc"
 
-    su --session-command "exec bash" $(logname)
+    exec su --session-command bash $(logname)
 fi
