@@ -101,6 +101,7 @@ chmod a+w /var/www/html/ams/templates_c/
 chmod a+w /var/www/html/
 chmod a+w /var/www/private_php/ams/tmp/
 
+chmod a+w build/code/ryzom/server
 chmod a+x build/code/ryzom/tools/scripts/linux/*
 
 if [ $(logname) = "root" ]; then
