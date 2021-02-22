@@ -83,11 +83,18 @@ fi
 )
 
 if [ ! -d /var/www/html-backup ]; then
-    mv /var/www/html /var/www/html-backup
+    cp -r /var/www/html /var/www/html-backup
 fi
 
-cp -R build/code/web/public_php /var/www/html
-cp -R build/code/web/private_php /var/www/private_php
+if [ -f /var/www/html/config.php ]; then
+    cp /var/www/html/config.php build/code/web/public_php/config.php
+fi
+
+rm -rf /var/www/html
+cp -r build/code/web/public_php /var/www/html
+
+rm -rf /var/www/private_php
+cp -r build/code/web/private_php /var/www/private_php
 
 if [ ! -d /var/www/html/login/logs ]; then
     mkdir /var/www/html/login/logs
