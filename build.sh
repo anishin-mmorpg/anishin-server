@@ -6,6 +6,7 @@ if [[ $(id -u) -ne 0 ]]; then
 fi
 
 if [ "$1" = "clean" ]; then
+    rm -f build/CMakeCache.txt
     rm -Rf build/build
     rm -Rf build/lib
     exit
@@ -74,6 +75,7 @@ fi
     RYZOM_PATH="$(pwd)/code/ryzom"
     PATH=$PATH:$RYZOM_PATH/tools/scripts/linux
 
+    CXX='/usr/bin/c++ -DHAVE_X86_64' \
     cmake -DWITH_NEL=ON -DWITH_NELNS=ON -DWITH_RYZOM_SERVER=ON -DWITH_STATIC=ON -DWITH_STATIC_DRIVERS=ON \
           -DWITH_RYZOM_CLIENT=OFF -DWITH_DRIVER_OPENGL=OFF -DWITH_DRIVER_OPENAL=OFF -DWITH_SOUND=OFF \
           -DWITH_NEL_TOOLS=OFF -DWITH_RYZOM_TOOLS=OFF -DWITH_NEL_TESTS=OFF -DWITH_NEL_SAMPLES=OFF -DWITH_GUI=OFF ..
