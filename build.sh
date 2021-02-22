@@ -87,7 +87,9 @@ if [ ! -d /var/www/html-backup ]; then
 fi
 
 if [ -f /var/www/html/config.php ]; then
-    cp /var/www/html/config.php build/code/web/public_php/config.php
+    cp /var/www/html/config* build/code/web/public_php/
+    cp /var/www/html/db* build/code/web/public_php/
+    cp /var/www/html/role* build/code/web/public_php/
 fi
 
 rm -rf /var/www/html
