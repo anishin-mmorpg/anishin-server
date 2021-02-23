@@ -115,16 +115,8 @@ chmod a+w /var/www/private_php/ams/tmp/
 chmod a+w build/code/ryzom/server
 chmod a+x build/code/ryzom/tools/scripts/linux/*
 
-if [ $(logname) = "root" ]; then
-    HOME="/root"
-else
-    HOME="/home/$(logname)"
-fi
-
-if [ -z "$RYZOM_PATH" ]; then
-    echo "" >> "$HOME/.bashrc"
-    echo "export RYZOM_PATH=$(pwd)/build/code/ryzom" >> "$HOME/.bashrc"
-    echo "export PATH=\$PATH:\$RYZOM_PATH/tools/scripts/linux" >> "$HOME/.bashrc"
-
-    exec su --session-command bash $(logname)
+if ! cat ~/.bashrc | grep -q 'RYZOM_PATH=' ; then
+    echo "" >> ~/.bashrc
+    echo "export RYZOM_PATH=$(pwd)/build/code/ryzom" >> ~/.bashrc
+    echo "export PATH=\$PATH:\$RYZOM_PATH/tools/scripts/linux" >> ~/.bashrc
 fi
