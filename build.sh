@@ -115,8 +115,6 @@ chmod a+w /var/www/private_php/ams/tmp/
 chmod a+w build/code/ryzom/server
 chmod a+x build/code/ryzom/tools/scripts/linux/*
 
-if ! cat ~/.bashrc | grep -q 'RYZOM_PATH=' ; then
-    echo "" >> ~/.bashrc
-    echo "export RYZOM_PATH=$(pwd)/build/code/ryzom" >> ~/.bashrc
-    echo "export PATH=\$PATH:\$RYZOM_PATH/tools/scripts/linux" >> ~/.bashrc
-fi
+echo "export RYZOM_PATH=$(pwd)/build/code/ryzom" > ~/.anishin
+echo "export PATH=\$PATH:\$RYZOM_PATH/tools/scripts/linux" >> ~/.anishin
+
