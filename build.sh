@@ -69,6 +69,9 @@ fi
     fi
 )
 
+IPADDRESS=$(ifconfig eth0 | grep inet | awk '{print $2}' | head -n 1)
+sed -i "s/shard.ryzomcore.org/$IPADDRESS/g" build/code/ryzom/server/frontend_service.cfg
+
 (
     cd build
 
