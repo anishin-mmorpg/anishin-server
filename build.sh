@@ -33,12 +33,6 @@ fi
         ( cd nel; git pull )
     fi
 
-    if [ ! -d nelns ]; then
-        git clone https://github.com/anishin-mmorpg/ryzom-nelns.git nelns
-    else
-        ( cd nelns; git pull )
-    fi
-
     if [ ! -d web ]; then
         git clone https://github.com/anishin-mmorpg/ryzom-web.git web
     else
