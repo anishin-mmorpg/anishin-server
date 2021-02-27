@@ -1029,7 +1029,7 @@ INSERT INTO `permission` VALUES (
 USE `ring_open`;
 
 INSERT INTO `shard` VALUES (
-	1001,                                       -- shard_id
+	1,                                          -- shard_id
 	0,                                          -- WSOnline
 	'Shard up',                                 -- MOTD
 	'ds_open',                                  -- OldState (ds_close, ds_dev, *ds_restricted, ds_open)
@@ -1037,7 +1037,7 @@ INSERT INTO `shard` VALUES (
 );
 
 INSERT INTO `sessions` VALUES (
-	1001,                                       -- session_id
+	1,                                          -- session_id
 	'st_mainland',                              -- session_type (*st_edit, st_anim, st_outland, st_mainland)
 	'docky shard mainland',                     -- title
 	0,                                          -- owner
