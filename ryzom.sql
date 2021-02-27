@@ -1,8 +1,8 @@
-drop database nel;
-drop database nel_ams;
-drop database nel_ams_lib;
-drop database nel_tool;
-drop database ring_open;
+DROP DATABASE IF EXISTS nel;
+DROP DATABASE IF EXISTS nel_ams;
+DROP DATABASE IF EXISTS nel_ams_lib;
+DROP DATABASE IF EXISTS nel_tool;
+DROP DATABASE IF EXISTS ring_open;
 
 CREATE USER IF NOT EXISTS 'shard';
 GRANT ALL ON nel.* TO shard@localhost;
