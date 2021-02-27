@@ -709,9 +709,7 @@ CREATE TABLE `assigned` (
   `User` int(10) unsigned NOT NULL,
   PRIMARY KEY (`Ticket`,`User`),
   KEY `fk_assigned_ticket_idx` (`Ticket`),
-  KEY `fk_assigned_ams_user_idx` (`User`),
-  CONSTRAINT `fk_assigned_ams_user` FOREIGN KEY (`User`) REFERENCES `ticket_user` (`TUserId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_assigned_ticket` FOREIGN KEY (`Ticket`) REFERENCES `ticket` (`TId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_assigned_ams_user_idx` (`User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `email`;
@@ -729,10 +727,7 @@ CREATE TABLE `email` (
   PRIMARY KEY (`MailId`),
   KEY `fk_email_ticket_user2` (`UserId`),
   KEY `fk_email_ticket1` (`TicketId`),
-  KEY `fk_email_support_group1` (`Sender`),
-  CONSTRAINT `fk_email_support_group1` FOREIGN KEY (`Sender`) REFERENCES `support_group` (`SGroupId`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_email_ticket1` FOREIGN KEY (`TicketId`) REFERENCES `ticket` (`TId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_email_ticket_user2` FOREIGN KEY (`UserId`) REFERENCES `ticket_user` (`TUserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_email_support_group1` (`Sender`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `forwarded`;
@@ -740,9 +735,7 @@ CREATE TABLE `forwarded` (
   `Group` int(10) unsigned NOT NULL,
   `Ticket` int(10) unsigned NOT NULL,
   KEY `fk_forwarded_support_group1` (`Group`),
-  KEY `fk_forwarded_ticket1` (`Ticket`),
-  CONSTRAINT `fk_forwarded_support_group1` FOREIGN KEY (`Group`) REFERENCES `support_group` (`SGroupId`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_forwarded_ticket1` FOREIGN KEY (`Ticket`) REFERENCES `ticket` (`TId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_forwarded_ticket1` (`Ticket`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `in_group`;
@@ -751,9 +744,7 @@ CREATE TABLE `in_group` (
   `Ticket` int(10) unsigned NOT NULL,
   PRIMARY KEY (`Ticket_Group`,`Ticket`),
   KEY `fk_in_group_ticket_group_idx` (`Ticket_Group`),
-  KEY `fk_in_group_ticket_idx` (`Ticket`),
-  CONSTRAINT `fk_in_group_ticket` FOREIGN KEY (`Ticket`) REFERENCES `ticket` (`TId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_in_group_ticket_group` FOREIGN KEY (`Ticket_Group`) REFERENCES `ticket_group` (`TGroupId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_in_group_ticket_idx` (`Ticket`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `in_support_group`;
@@ -761,9 +752,7 @@ CREATE TABLE `in_support_group` (
   `User` int(10) unsigned NOT NULL,
   `Group` int(10) unsigned NOT NULL,
   KEY `fk_in_support_group_ticket_user1` (`User`),
-  KEY `fk_in_support_group_support_group1` (`Group`),
-  CONSTRAINT `fk_in_support_group_support_group1` FOREIGN KEY (`Group`) REFERENCES `support_group` (`SGroupId`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `fk_in_support_group_ticket_user1` FOREIGN KEY (`User`) REFERENCES `ticket_user` (`TUserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_in_support_group_support_group1` (`Group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `plugins`;
@@ -826,9 +815,7 @@ CREATE TABLE `tagged` (
   `Ticket` int(10) unsigned NOT NULL,
   `Tag` int(10) unsigned NOT NULL,
   PRIMARY KEY (`Ticket`,`Tag`),
-  KEY `fk_tagged_tag_idx` (`Tag`),
-  CONSTRAINT `fk_tagged_tag` FOREIGN KEY (`Tag`) REFERENCES `tag` (`TagId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tagged_ticket` FOREIGN KEY (`Ticket`) REFERENCES `ticket` (`TId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_tagged_tag_idx` (`Tag`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `ticket`;
@@ -843,9 +830,7 @@ CREATE TABLE `ticket` (
   `Priority` int(3) DEFAULT 0,
   PRIMARY KEY (`TId`),
   KEY `fk_ticket_ticket_category_idx` (`Ticket_Category`),
-  KEY `fk_ticket_ams_user_idx` (`Author`),
-  CONSTRAINT `fk_ticket_ams_user` FOREIGN KEY (`Author`) REFERENCES `ticket_user` (`TUserId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ticket_ticket_category` FOREIGN KEY (`Ticket_Category`) REFERENCES `ticket_category` (`TCategoryId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_ticket_ams_user_idx` (`Author`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `ticket_attachments`;
@@ -860,9 +845,7 @@ CREATE TABLE `ticket_attachments` (
   PRIMARY KEY (`idticket_attachments`),
   UNIQUE KEY `idticket_attachments_UNIQUE` (`idticket_attachments`),
   KEY `fk_ticket_attachments_ticket1_idx` (`ticket_TId`),
-  KEY `fk_ticket_attachments_ticket_user1_idx` (`Uploader`),
-  CONSTRAINT `fk_ticket_attachments_ticket1` FOREIGN KEY (`ticket_TId`) REFERENCES `ticket` (`TId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ticket_attachments_ticket_user1` FOREIGN KEY (`Uploader`) REFERENCES `ticket_user` (`TUserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_ticket_attachments_ticket_user1_idx` (`Uploader`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `ticket_category`;
@@ -915,8 +898,7 @@ CREATE TABLE `ticket_info` (
   `UserId` int(11) DEFAULT NULL,
   `TimeInGame` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`TInfoId`),
-  KEY `fk_ticket_info_ticket1` (`Ticket`),
-  CONSTRAINT `fk_ticket_info_ticket1` FOREIGN KEY (`Ticket`) REFERENCES `ticket` (`TId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_ticket_info_ticket1` (`Ticket`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `ticket_log`;
@@ -928,9 +910,7 @@ CREATE TABLE `ticket_log` (
   `Author` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`TLogId`),
   KEY `fk_ticket_log_ticket1` (`Ticket`),
-  KEY `fk_ticket_log_ticket_user1` (`Author`),
-  CONSTRAINT `fk_ticket_log_ticket1` FOREIGN KEY (`Ticket`) REFERENCES `ticket` (`TId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ticket_log_ticket_user1` FOREIGN KEY (`Author`) REFERENCES `ticket_user` (`TUserId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_ticket_log_ticket_user1` (`Author`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `ticket_reply`;
@@ -944,10 +924,7 @@ CREATE TABLE `ticket_reply` (
   PRIMARY KEY (`TReplyId`),
   KEY `fk_ticket_reply_ticket_idx` (`Ticket`),
   KEY `fk_ticket_reply_ams_user_idx` (`Author`),
-  KEY `fk_ticket_reply_content_idx` (`Content`),
-  CONSTRAINT `fk_ticket_reply_ams_user` FOREIGN KEY (`Author`) REFERENCES `ticket_user` (`TUserId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ticket_reply_ticket` FOREIGN KEY (`Ticket`) REFERENCES `ticket` (`TId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ticket_reply_ticket_content` FOREIGN KEY (`Content`) REFERENCES `ticket_content` (`TContentId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_ticket_reply_content_idx` (`Content`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `ticket_user`;
@@ -969,8 +946,7 @@ CREATE TABLE `updates` (
   `UpdatePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `UpdateInfo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`s.no`),
-  KEY `PluginId` (`PluginId`),
-  CONSTRAINT `updates_ibfk_1` FOREIGN KEY (`PluginId`) REFERENCES `plugins` (`Id`)
+  KEY `PluginId` (`PluginId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 USE `nel_tool`;
