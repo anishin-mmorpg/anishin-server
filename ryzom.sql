@@ -1013,8 +1013,8 @@ INSERT INTO `domain` VALUES (
 	'localhost:49998',                          -- login_address
 	'localhost:49999',                          -- session_manager_address
 	'ring_open',                                -- ring_db_name
-	'localhost:30000',                          -- web_host
-	'localhost:40916',                          -- web_host_php
+	'shard01.ryzomcore.local:30000',            -- web_host
+	'shard01.ryzomcore.local:40916',            -- web_host_php
 	'Open Domain'                               -- description
 );
 
