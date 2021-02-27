@@ -4,7 +4,7 @@ drop database nel_ams_lib;
 drop database nel_tool;
 drop database ring_open;
 
-CREATE USER 'shard';
+CREATE USER IF NOT EXISTS 'shard';
 GRANT ALL ON nel.* TO shard@localhost;
 GRANT ALL ON nel_ams.* TO shard@localhost;
 GRANT ALL ON nel_ams_lib.* TO shard@localhost;
