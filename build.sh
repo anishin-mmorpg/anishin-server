@@ -69,6 +69,9 @@ fi
     fi
 )
 
+IPADDRESS=$(ifconfig eth0 | grep inet | awk '{print $2}' | head -n 1)
+sed -i "s/shard.ryzomcore.org/$IPADDRESS/g" build/code/ryzom/server/frontend_service.cfg
+
 (
     cd build
 
@@ -115,16 +118,6 @@ chmod a+w /var/www/private_php/ams/tmp/
 chmod a+w build/code/ryzom/server
 chmod a+x build/code/ryzom/tools/scripts/linux/*
 
-if [ $(logname) = "root" ]; then
-    HOME="/root"
-else
-    HOME="/home/$(logname)"
-fi
+echo "export RYZOM_PATH=$(pwd)/build/code/ryzom" > ~/.anishin
+echo "export PATH=\$PATH:\$RYZOM_PATH/tools/scripts/linux" >> ~/.anishin
 
-if [ -z "$RYZOM_PATH" ]; then
-    echo "" >> "$HOME/.bashrc"
-    echo "export RYZOM_PATH=$(pwd)/build/code/ryzom" >> "$HOME/.bashrc"
-    echo "export PATH=\$PATH:\$RYZOM_PATH/tools/scripts/linux" >> "$HOME/.bashrc"
-
-    exec su --session-command bash $(logname)
-fi
