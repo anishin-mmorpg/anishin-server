@@ -385,7 +385,7 @@ CREATE TABLE `characters` (
   `home_mainland_session_id` int(10) unsigned NOT NULL DEFAULT 0,
   `ring_access` varchar(63) NOT NULL DEFAULT '',
   `race` enum('r_fyros','r_matis','r_tryker','r_zorai') NOT NULL DEFAULT 'r_fyros',
-  `civilisation` enum('c_neutral','c_fyros','c_fyros','c_matis','c_tryker','c_zorai') NOT NULL DEFAULT 'c_neutral',
+  `civilisation` enum('c_neutral','c_fyros','c_matis','c_tryker','c_zorai') NOT NULL DEFAULT 'c_neutral',
   `cult` enum('c_neutral','c_kami','c_karavan') NOT NULL DEFAULT 'c_neutral',
   `current_session` int(11) unsigned NOT NULL DEFAULT 0,
   `rrp_am` int(11) unsigned NOT NULL DEFAULT 0,
