@@ -72,8 +72,8 @@ fi
 IPADDRESS=$(ifconfig eth0 | grep inet | awk '{print $2}' | head -n 1)
 
 if ! grep -q shard01.ryzomcore.local /etc/hosts; then
-    echo "" > /etc/hosts
-    echo "$IPADDRESS shard01.ryzomcore.local" > /etc/hosts
+    echo "" >> /etc/hosts
+    echo "$IPADDRESS shard01.ryzomcore.local" >> /etc/hosts
 fi
 
 (
