@@ -966,7 +966,7 @@ INSERT INTO `neltool_users` VALUES (
 INSERT INTO `neltool_domains` VALUES (
 	1,                                                                        -- domain_id
 	'ryzom_open',                                                             -- domain_name
-	'localhost',                                                              -- domain_as_host
+	'shard01.ryzomcore.local',                                                              -- domain_as_host
 	46700,                                                                    -- domain_as_port
 	'/home/ryzom/code/ryzom/server/save_shard/rrd_graphs',                    -- domain_rrd_path
 	'',                                                                       -- domain_las_admin_path
@@ -1010,8 +1010,8 @@ INSERT INTO `domain` VALUES (
 	1,                                          -- patch_version
 	'http://shard01.ryzomcore.local:23001',     -- backup_patch_url (if patch_urls fails)
 	'http://shard01.ryzomcore.local/patch',     -- patch_urls (space separated)
-	'localhost:49998',                          -- login_address
-	'localhost:49999',                          -- session_manager_address
+	'shard01.ryzomcore.local:49998',            -- login_address
+	'shard01.ryzomcore.local:49999',            -- session_manager_address
 	'ring_open',                                -- ring_db_name
 	'shard01.ryzomcore.local:30000',            -- web_host
 	'shard01.ryzomcore.local:40916',            -- web_host_php
