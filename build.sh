@@ -2,13 +2,62 @@
 
 if [[ $(id -u) -ne 0 ]]; then
     echo "The build script must be run as root (or sudo)"
+
     exit
+fi
+
+if [ "$1" = "os" ]; then
+    # Firewall
+    ufw disable
+
+    # System
+    apt update
+    apt -y install net-tools
+
+    # Apache
+    apt -y install apache2
+
+    cp vhost.conf /etc/apache2/sites-available/000-default.conf
+
+    if ! grep -q 40916 /etc/apache2/ports.conf; then
+        echo "" >> /etc/apache2/ports.conf
+        echo "Listen 40916" >> /etc/apache2/ports.conf
+    fi
+
+    # MariaDB
+    apt -y install mariadb-server
+
+    mariadb -u root <<- EOF
+	UPDATE mysql.user SET authentication_string = PASSWORD('anishin-mmorpg') WHERE User = 'root';
+	UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE User = 'root';
+	DELETE FROM mysql.user WHERE User = '';
+	DELETE FROM mysql.user WHERE User = 'root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+	DROP DATABASE IF EXISTS test;
+	DELETE FROM mysql.db WHERE Db = 'test' OR Db = 'test\\_%';
+	FLUSH PRIVILEGES;
+	EOF
+
+    # PHP
+    apt -y install libapache2-mod-fcgid php7.4 php7.4-fpm php7.4-mysql php7.4-gd
+
+    a2enmod proxy_fcgi setenvif
+    a2enconf php7.4-fpm
+
+    # System
+    service apache2 restart
+
+    exit
+fi
+
+if [ "$1" = "db" ]; then
+    mariadb -u root < ryzom.sql
 fi
 
 if [ "$1" = "clean" ]; then
     rm -f build/CMakeCache.txt
     rm -Rf build/build
     rm -Rf build/lib
+
     exit
 fi
 
