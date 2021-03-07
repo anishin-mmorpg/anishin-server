@@ -12,7 +12,11 @@ if [ "$1" = "os" ]; then
 
     # System
     apt update
-    apt -y install net-tools
+    
+    apt -y install cmake bison build-essential screen rrdtool net-tools \
+    libgl1-mesa-dev libopenal-dev libogg-dev libvorbis-dev libluabind-dev libfreetype6-dev \
+    libpng-dev libjpeg62-dev libx11-dev libxxf86vm-dev libxrandr-dev libxrender-dev \
+    libcurl4-openssl-dev libxmu-dev libexpat1-dev libxml2-dev libmysqlclient-dev zlib1g-dev
 
     # Apache
     apt -y install apache2
@@ -27,7 +31,7 @@ if [ "$1" = "os" ]; then
     # MariaDB
     apt -y install mariadb-server
 
-    mariadb -u root <<- EOF
+    mariadb --user=root <<- EOF
 	UPDATE mysql.user SET authentication_string = PASSWORD('anishin-mmorpg') WHERE User = 'root';
 	UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE User = 'root';
 	DELETE FROM mysql.user WHERE User = '';
@@ -50,7 +54,7 @@ if [ "$1" = "os" ]; then
 fi
 
 if [ "$1" = "db" ]; then
-    mariadb -u root < ryzom.sql
+    mariadb --user=root --password=anishin-mmorpg < ryzom.sql
 fi
 
 if [ "$1" = "clean" ]; then
