@@ -55,6 +55,8 @@ fi
 
 if [ "$1" = "db" ]; then
     mariadb --user=root --password=anishin-mmorpg < ryzom.sql
+    
+    exit
 fi
 
 if [ "$1" = "clean" ]; then
