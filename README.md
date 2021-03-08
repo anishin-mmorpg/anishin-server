@@ -1,6 +1,6 @@
 # Anishin Server
 
-This is a build system for the [Ryzom](https://ryzom.com) MMORPG.
+This is a build system for the [Ryzom](https://ryzom.com) MMORPG server.
 
 ## Overview
 
