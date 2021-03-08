@@ -18,7 +18,7 @@ https://github.com/anishin-mmorpg/ryzom-tools
 
 https://github.com/anishin-mmorpg/ryzom-web
 
-The intent is to create a build system for them that is easy to use and understand. The open source code was spread out over a variety of different [websites](https://sourceforge.net/projects/ryzom/), [repositories](https://github.com/ryzom/), and [branches](https://github.com/ryzom/ryzomcore/tree/ryzomclassic-develop), and no single place had a working system. I have consolidated the working code and written some scripts to automate the build process for you.
+The intent is to create a build system for them that is easy to use and understand. The open source code was spread out over a variety of different [websites](https://sourceforge.net/projects/ryzom/), [repositories](https://github.com/ryzom/), and [branches](https://github.com/ryzom/ryzomcore/tree/ryzomclassic-develop), and no single place had a working system. I have consolidated the working code and written some scripts to automate the build process.
 
 The official documentation is also outdated and missing a lot of critical things. I hope to properly document the entire architecture and make it as easy as possible to build your own MMORPG with it.
 
