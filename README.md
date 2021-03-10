@@ -88,6 +88,10 @@ It will take about 2 Hrs to complete the last step.
 
 You can build the [Anishin Client](https://github.com/anishin-mmorpg/anishin-client) or use the official one by doing the following ... 
 
+* Create an official account, login, create a character, click **Play** and then quit after you've spawned
+
+* This will download some necessary files that are not distributed with the server yet
+
 * Add the shard's domain to your *hosts* file
 
 * On Windows, this is located at C:\Windows\System32\drivers\etc\hosts
